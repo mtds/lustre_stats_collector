@@ -1,0 +1,2 @@
+[LustreStats]
+lustre_metric_types = osd-*.*.kbytesfree,osd-*.*.kbytestotal,osd-*.*.filesfree,osd-*.*.filestotal,mdt.*MDT*.md_stats,mdt.*MDT*.num_exports
