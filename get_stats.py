@@ -32,7 +32,7 @@ def get_stats(lustre_stats):
    # If 'metric' contains 'snapshot_time' it means we are dealing with multiline values:
    #
    if 'snapshot_time' in metric:
-      for item in metric.splitlines()[1::]:
+      for item in metric.splitlines():
           if 'obdfilter' in item:
              ost_name = item.split('.')[1]
           elif 'snapshot_time' in item:
