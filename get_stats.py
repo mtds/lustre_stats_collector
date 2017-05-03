@@ -42,10 +42,10 @@ def get_stats(lustre_stats):
           else: 
              if '_bytes' not in item:
                 stats_type, stats_requests, unit_str, reqs_str = filter(None, item.split(" "))
-                print "%s Stats %s=%s %d" % (ost_name,stats_type,stats_requests,timestamp)
+                print "%s %s=%s %d" % (ost_name,stats_type,stats_requests,timestamp)
              else:
                 read_write_ops, events, samples_str, unit_str, min_rd_wr, max_rd_wr, sum_rd_wr = filter(None, item.split(" "))
-                print "%s Read_Write_Events %s=%s,%s_min=%s,%s_max=%s,%s_sum=%s %d" % (ost_name,read_write_ops,events,read_write_ops,min_rd_wr,read_write_ops,max_rd_wr,read_write_ops,sum_rd_wr,timestamp)
+                print "%s %s=%s,%s_min=%s,%s_max=%s,%s_sum=%s %d" % (ost_name,read_write_ops,events,read_write_ops,min_rd_wr,read_write_ops,max_rd_wr,read_write_ops,sum_rd_wr,timestamp)
    else:
       timestamp = int(time.time()) * 1000000000 # extract the integer part of time() and convert it in nanoseconds
       value_list = metric.splitlines()
