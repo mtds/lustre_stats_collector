@@ -42,16 +42,20 @@ def get_stats(lustre_stats):
           else: 
              if '_bytes' not in item:
                 stats_type, stats_requests, unit_str, reqs_str = filter(None, item.split(" "))
-                print "%s %s=%s %d" % (ost_name,stats_type,stats_requests,timestamp)
+                print "ops_stats,ost_name=%s %s=%s %d" % (ost_name,stats_type,stats_requests,timestamp)
              else:
                 read_write_ops, events, samples_str, unit_str, min_rd_wr, max_rd_wr, sum_rd_wr = filter(None, item.split(" "))
-                print "%s %s=%s,%s_min=%s,%s_max=%s,%s_sum=%s %d" % (ost_name,read_write_ops,events,read_write_ops,min_rd_wr,read_write_ops,max_rd_wr,read_write_ops,sum_rd_wr,timestamp)
+                print "RW_stats,ost_name=%s %s=%s,%s_min=%s,%s_max=%s,%s_sum=%s %d" % (ost_name,read_write_ops,events,read_write_ops,min_rd_wr,read_write_ops,max_rd_wr,read_write_ops,sum_rd_wr,timestamp)
    else:
       timestamp = int(time.time()) * 1000000000 # extract the integer part of time() and convert it in nanoseconds
       value_list = metric.splitlines()
       for item in value_list:
           measurement, value = item.split("=")
-          print "Lustre %s=%s %d" % (measurement,value,timestamp)
+          if 'namespaces' in measurement:
+             ost_name = re.search('filter-(.+?)_UUID', measurement.split(".")[2]).group(1)
+          else:
+             ost_name = measurement.split(".")[1]
+          print "lustre_stats,ost_name=%s %s=%s %d" % (ost_name,measurement,value,timestamp)
 
 def main(argv):
 
