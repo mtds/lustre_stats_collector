@@ -55,7 +55,7 @@ def get_stats(lustre_stats):
              ost_name = re.search('filter-(.+?)_UUID', measurement.split(".")[2]).group(1)
           else:
              ost_name = measurement.split(".")[1]
-          print "lustre_stats,ost_name=%s %s=%s %d" % (ost_name,measurement,value,timestamp)
+          print "lustre_stats,ost_name=%s %s=%s %d" % (ost_name,measurement.rpartition('.')[-1],value,timestamp)
 
 def main(argv):
 
