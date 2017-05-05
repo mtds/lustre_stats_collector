@@ -23,7 +23,12 @@ import time
 def get_stats(lustre_stats):
 
    # Call 'lctl get_param' and get the result (subprocess() return always a string):
-   metric = subprocess.check_output(['lctl', 'get_param', lustre_stats])
+   # (if the stats included in the config file is not present then skip it)
+   try:
+      metric = subprocess.check_output(['lctl', 'get_param', lustre_stats])
+   except subprocess.CalledProcessError as e:
+      return
+
 
    # Temporary host the OST name:
    ost_name = ''
