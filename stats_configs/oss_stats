@@ -1,2 +1,2 @@
 [LustreStats]
-lustre_metric_types = obdfilter.*OST*.kbytesfree,obdfilter.*OST*.kbytestotal,obdfilter.*OST*.filesfree,obdfilter.*OST*.filestotal,obdfilter.*.stats,ldlm.namespaces.filter-*.pool.granted
+lustre_metric_types = obdfilter.*OST*.kbytesfree,obdfilter.*OST*.kbytestotal,obdfilter.*OST*.filesfree,obdfilter.*OST*.filestotal,obdfilter.*.stats,ldlm.namespaces.filter-*.pool.granted,ldlm.namespaces.filter-*.pool.*_rate,ldlm.namespaces.filter-*.lock_count
