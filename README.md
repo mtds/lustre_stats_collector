@@ -67,6 +67,7 @@ Lustre statistics about *locks*:
 - lustre distributed lock manager (ldlm) granted locks
 - ldlm lock grant rate
 - ldlm lock cancel rate
+
 ~~~
 lustre_stats,ost_name=OST_name granted=24888 1495111943000000000
 lustre_stats,ost_name=OST_name lock_count=24888 1495111943000000000
