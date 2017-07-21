@@ -49,7 +49,7 @@ def get_stats(lustre_stats):
           else: 
              if '_bytes' not in item:
                 stats_type, stats_requests, unit_str, reqs_str = filter(None, item.split(" "))
-                print "ops_stats,ost_name=%s %s=%s %d" % (ost_name,stats_type,stats_requests,timestamp)
+                print "ops_stats,ost_name=%s,op_type=%s op_requests=%s %d" % (ost_name,stats_type,stats_requests,timestamp)
              else:
                 read_write_ops, events, samples_str, unit_str, min_rd_wr, max_rd_wr, sum_rd_wr = filter(None, item.split(" "))
                 if client_ip:
