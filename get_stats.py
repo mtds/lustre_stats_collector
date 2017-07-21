@@ -29,8 +29,8 @@ def get_stats(lustre_stats):
    except subprocess.CalledProcessError as e:
       return
 
-
-   # Temporary host the OST name:
+   # Initialize string variables (avoid errors like: "local variable [...] referenced before assignment")
+   client_ip = ''
    ost_name = ''
 
    #
@@ -40,6 +40,8 @@ def get_stats(lustre_stats):
       for item in metric.splitlines():
           if 'obdfilter' in item:
              ost_name = item.split('.')[1]
+             if 'exports' in item:
+                 client_ip = re.findall( r'[0-9]+(?:\.[0-9]+){3}', item ) # Note: the 're.findall' function returns a list
           elif 'snapshot_time' in item:
              stats_t = (filter(None, metric.splitlines()))[1]
              timestamp = re.findall(r'\d+', stats_t)[0]
@@ -50,7 +52,10 @@ def get_stats(lustre_stats):
                 print "ops_stats,ost_name=%s %s=%s %d" % (ost_name,stats_type,stats_requests,timestamp)
              else:
                 read_write_ops, events, samples_str, unit_str, min_rd_wr, max_rd_wr, sum_rd_wr = filter(None, item.split(" "))
-                print "RW_stats,ost_name=%s %s=%s,%s_min=%s,%s_max=%s,%s_sum=%s %d" % (ost_name,read_write_ops,events,read_write_ops,min_rd_wr,read_write_ops,max_rd_wr,read_write_ops,sum_rd_wr,timestamp)
+                if client_ip:
+                   print "RW_stats,ost_name=%s,client_ip=%s %s=%s,%s_min=%s,%s_max=%s,%s_sum=%s %d" % (ost_name,client_ip[0],read_write_ops,events,read_write_ops,min_rd_wr,read_write_ops,max_rd_wr,read_write_ops,sum_rd_wr,timestamp)
+                else:
+                   print "RW_stats,ost_name=%s %s=%s,%s_min=%s,%s_max=%s,%s_sum=%s %d" % (ost_name,read_write_ops,events,read_write_ops,min_rd_wr,read_write_ops,max_rd_wr,read_write_ops,sum_rd_wr,timestamp)
    else:
       timestamp = int(time.time()) * 1000000000 # extract the integer part of time() and convert it in nanoseconds
       value_list = metric.splitlines()
