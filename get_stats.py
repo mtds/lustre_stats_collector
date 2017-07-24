@@ -53,9 +53,9 @@ def get_stats(lustre_stats):
              else:
                 read_write_ops, events, samples_str, unit_str, min_rd_wr, max_rd_wr, sum_rd_wr = filter(None, item.split(" "))
                 if client_ip:
-                   print "RW_stats,ost_name=%s,client_ip=%s %s=%s,%s_min=%s,%s_max=%s,%s_sum=%s %d" % (ost_name,client_ip[0],read_write_ops,events,read_write_ops,min_rd_wr,read_write_ops,max_rd_wr,read_write_ops,sum_rd_wr,timestamp)
+                   print "RW_stats,ost_name=%s,client_ip=%s %s_samples=%s,%s_min=%s,%s_max=%s,%s_sum=%s %d" % (ost_name,client_ip[0],read_write_ops,events,read_write_ops,min_rd_wr,read_write_ops,max_rd_wr,read_write_ops,sum_rd_wr,timestamp)
                 else:
-                   print "RW_stats,ost_name=%s %s=%s,%s_min=%s,%s_max=%s,%s_sum=%s %d" % (ost_name,read_write_ops,events,read_write_ops,min_rd_wr,read_write_ops,max_rd_wr,read_write_ops,sum_rd_wr,timestamp)
+                   print "RW_stats,ost_name=%s %s_samples=%s,%s_min=%s,%s_max=%s,%s_sum=%s %d" % (ost_name,read_write_ops,events,read_write_ops,min_rd_wr,read_write_ops,max_rd_wr,read_write_ops,sum_rd_wr,timestamp)
    else:
       timestamp = int(time.time()) * 1000000000 # extract the integer part of time() and convert it in nanoseconds
       value_list = metric.splitlines()
